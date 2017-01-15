@@ -44,17 +44,18 @@
 		var point = new BMap.Point(a.lon,a.lat);  
 		a.point=point;
 		var marker=null;
+		var date=(new Date).toLocaleTimeString();
 	//	BMap.Convertor.translate(points,1,function(){
-		marker = new BMap.Marker(point);  
-		
+		marker = new BMap.Marker(point,{'title':a.hex+"\n"+a.flight+"\nalt:"+a.altitude+"\nspeed:"+a.speed+"\nlat,lon:"+a.lat+","+a.lon+"\ntime(on your computer):"+date});  
+		var label=new BMap.Label(a.flight);
+		label.setStyle({  
+			 height:"12px",                                 //给label设置样式，任意的CSS都是可以的
+    fontSize:"10px"});
+    marker.setLabel(label);
 		marker.addEventListener("mouseover", function(){
-			var sstring=a.hex+"<br>"+a.flight+"<br>alt:"+a.altitude+"<br>speed:"+a.speed+"<br>lat,lon:"+a.lat+","+a.lon+"<br>time(on your computer):"+(new Date).toLocaleTimeString();
+			var sstring=a.hex+"<br>"+a.flight+"<br>alt:"+a.altitude+"<br>speed:"+a.speed+"<br>lat,lon:"+a.lat+","+a.lon+"<br>time(on your computer):"+date;
 			$("#geninfo").html(sstring);
 		});
-		label=new BMap.Label(a.flight);
-		marker.setLabel(label);
-		//a.marker=marker;
-		a.point=point;
 		map.addOverlay(marker);
 	//});
 		return a;  
